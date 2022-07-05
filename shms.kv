@@ -1,0 +1,499 @@
+#:kivy 2.1.0
+#:import MeshLinePlot kivy_garden.graph.MeshLinePlot
+
+<MainScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            id: header_layout
+            orientation: "horizontal"
+            padding: 35, 0
+            Image:
+                id: logo
+                source:'logo.png'
+                size_hint_x: 0.15
+                allow_stretch: True
+
+            BoxLayout:
+                orientation: "vertical"
+                padding: 0, 15
+                Label:
+                    id : title
+                    text: "APLIKASI PENGUKURAN"
+                    bold: True
+                    font_size: 30
+                    size_hint_y: 0.5
+                    color: 0, 0, 0
+
+                Label:
+                    id: subtitle            
+                    text: "GETARAN DAN KEMIRINGAN JEMBATAN"
+                    bold: True
+                    font_size: 50
+                    size_hint_y: 2
+                    color: 0, 0, 0
+                
+                Label:
+                    id: border_0          
+                    text: ""
+                    bold: True
+                    font_size: 10
+                    size_hint_y: 0.5
+
+            Image:
+                id: powered_by
+                source:'powered_by.png'
+                size_hint_x: 0.05
+                allow_stretch: True
+
+        BoxLayout:
+            id: selector_layout
+            orientation: "horizontal" 
+            padding: 250, 0
+            spacing: 200
+            size_hint_y: 0.4
+
+            Button:
+                id: serial_port_label            
+                text: "Serial Port"
+                color: 1, 1, 1
+                on_press: root.serial_ports()            
+
+            Button:
+                id: bt_connect           
+                text: "START"
+                color: 1, 1, 1
+                on_press: root.start_get_data()            
+
+            Button:
+                id: bt_connect           
+                text: "STOP"
+                color: 1, 1, 1
+                on_press: root.stop_get_data() 
+
+        BoxLayout:
+            id: body_layout
+            orientation: "vertical" 
+            size_hint_y: 5
+            
+            Label:
+                id: body_title_accelero            
+                text: "Data Getaran"
+                font_size: 35
+                bold: True
+                size_hint: 0.3, 0.5
+                color: 0, 0, 0
+                
+            Button:
+                id: bt_accelero_graph            
+                text: "Tampilkan Grafik Getaran"
+                size_hint: 0.3, 0.3
+                color: 1, 1, 1
+                on_press: root.open_accelero_graph()
+
+            BoxLayout:
+                id: body_data_accelero
+                orientation: "horizontal"
+                BoxLayout:
+                    orientation: "vertical"
+                    padding: 35, 0
+                    Label:
+                        id: label_accelero_x            
+                        text: "Accelerometer X"
+                        font_size: 25
+                        color: 1, 0, 0
+                    
+                    Label:
+                        id: data_accelero_x            
+                        text: "0.00"
+                        font_size: 100
+                        size_hint_y: 2
+                        bold: True
+                        color: 1, 0, 0
+
+                BoxLayout:
+                    orientation: "vertical"
+                    padding: 35, 0
+                    Label:
+                        id: label_accelero_y            
+                        text: "Accelerometer Y"
+                        font_size: 25
+                        color: 0, 1, 0
+                    
+                    Label:
+                        id: data_accelero_y            
+                        text: "0.02"
+                        font_size: 100
+                        size_hint_y: 2
+                        bold: True
+                        color: 0, 1, 0
+    
+                BoxLayout:
+                    orientation: "vertical"
+                    padding: 35, 0
+                    Label:
+                        id: label_accelero_z            
+                        text: "Accelerometer Z"
+                        font_size: 25
+                        color: 0, 0, 1
+                    
+                    Label:
+                        id: data_accelero_z         
+                        text: "0.98"
+                        font_size: 100
+                        size_hint_y: 2
+                        bold: True
+                        color: 0, 0, 1
+
+            Label:
+                id: body_title_tilt            
+                text: "Data Kemiringan"
+                font_size: 35
+                bold: True
+                size_hint: 0.3, 0.5
+                color: 0, 0, 0
+
+            Button:
+                id: bt_tilt_graph            
+                text: "Tampilkan Grafik Kemiringan"
+                size_hint: 0.3, 0.3
+                color: 1, 1, 1
+                on_press: root.open_tilt_graph()
+
+            BoxLayout:
+                id: body_data_tilt
+                orientation: "horizontal"
+                BoxLayout:
+                    orientation: "vertical"
+                    padding: 35, 0
+                    Label:
+                        id: label_tilt_x            
+                        text: "Tilt Angle X"
+                        font_size: 25
+                        color: 1, 0, 0
+                    
+                    Label:
+                        id: data_tilt_x            
+                        text: "1.50"
+                        font_size: 100
+                        size_hint_y: 1.5
+                        bold: True
+                        color: 1, 0, 0
+
+                BoxLayout:
+                    orientation: "vertical"
+                    padding: 35, 0
+                    Label:
+                        id: label_tilt_y            
+                        text: "Tilt Angle Y"
+                        font_size: 25
+                        color: 0, 1, 0
+                    
+                    Label:
+                        id: data_tilt_y            
+                        text: "5.30"
+                        font_size: 100
+                        size_hint_y: 1.5
+                        bold: True
+                        color: 0, 1, 0
+               
+                BoxLayout:
+                    orientation: "vertical"
+                    padding: 35, 0
+                    Label:
+                        id: label_tilt_z            
+                        text: "Tilt Angle Z"
+                        font_size: 25
+                        color: 0, 0, 1
+                    
+                    Label:
+                        id: data_tilt_z         
+                        text: "10.05"
+                        font_size: 100
+                        size_hint_y: 1.5
+                        bold: True
+                        color: 0, 0, 1
+
+        BoxLayout:
+            id: graph_layout_accelero
+            orientation: "vertical"
+            size_hint_y: 5
+           
+            Label:
+                id: graph_title_accelero            
+                text: "Grafik Getaran"
+                bold: True
+                font_size: 35
+                size_hint: 0.3, 0.5
+                color: 0, 0, 0
+                
+            Button:
+                id: bt_accelero_home            
+                text: "Tampilan Awal"
+                size_hint: 0.3, 0.3
+                color: 1, 1, 1
+                on_press: root.open_home()
+                
+            BoxLayout:
+                id: graph_cb_accelero
+                orientation: "horizontal"
+                padding: 250, 0
+                spacing: 50
+                size_hint_y: 0.5
+
+                CheckBox:
+                    id: cb_accelero_x            
+                    text: "Accelero X"
+                    color: 1, 0, 0
+
+                CheckBox:
+                    id: cb_accelero_y            
+                    text: "Accelero Y"
+                    color: 0, 1, 0
+
+                CheckBox:
+                    id: cb_accelero_z            
+                    text: "Accelero Z"
+                    color: 0, 0, 1         
+
+            BoxLayout:
+                id: graph_accelero_x
+                size_hint_y: 1.0
+                spacing: 20        
+                
+                Graph:
+                    id: graph_time_acceleroX
+                    plot: MeshLinePlot
+                    # xlabel:'Waktu [s]'
+                    ylabel:'X Axis [g]'
+                    x_ticks_minor:5
+                    x_tics_major:25
+                    y_ticks_major:1
+                    y_grid_label:True
+                    x_grid_label:True
+                    padding:5
+                    x_grid:True
+                    y_grid:True
+                    xmin:-0
+                    xmax:100
+                    ymin:-2.5
+                    ymax:2.5
+                    border_color: (0,0,0,1)
+                    tick_color: (0.5,0.5,0.5,1)
+                    grid_color: (0.5,0.5,0.5,1)
+                    label_options: {'color': (0,0,0,1)}
+
+                Graph:
+                    id: graph_freq_acceleroX
+                    plot: MeshLinePlot
+                    # xlabel:'Frekuensi [Hz]'
+                    ylabel:'Penguatan [dB]'
+                    x_ticks_minor:50
+                    x_tics_major:250
+                    y_ticks_major:10
+                    y_grid_label:True
+                    x_grid_label:True
+                    padding:5
+                    x_grid:True
+                    y_grid:True
+                    xmin:-0
+                    xmax:100
+                    ymin:-25.0
+                    ymax:25.0
+                    border_color: (0,0,0,1)
+                    tick_color: (0.5,0.5,0.5,1)
+                    grid_color: (0.5,0.5,0.5,1)
+                    label_options: {'color': (0,0,0,1)}
+
+            BoxLayout:
+                id: graph_accelero_y
+                cols: 2
+                size_hint_y: 1.0
+                spacing: 20        
+                
+                Graph:
+                    id: graph_time_acceleroY
+                    plot: MeshLinePlot
+                    # xlabel:'Waktu [s]'
+                    ylabel:'Y Axis [g]'
+                    x_ticks_minor:5
+                    x_tics_major:25
+                    y_ticks_major:1
+                    y_grid_label:True
+                    x_grid_label:True
+                    padding:5
+                    x_grid:True
+                    y_grid:True
+                    xmin:-0
+                    xmax:100
+                    ymin:-2.5
+                    ymax:2.5
+                    border_color: (0,0,0,1)
+                    tick_color: (0.5,0.5,0.5,1)
+                    grid_color: (0.5,0.5,0.5,1)
+                    label_options: {'color': (0,0,0,1)}
+
+                Graph:
+                    id: graph_freq_acceleroY
+                    plot: MeshLinePlot
+                    # xlabel:'Frekuensi [Hz]'
+                    ylabel:'Penguatan [dB]'
+                    x_ticks_minor:5
+                    x_tics_major:25
+                    y_ticks_major:1
+                    y_grid_label:True
+                    x_grid_label:True
+                    padding:5
+                    x_grid:True
+                    y_grid:True
+                    xmin:-0
+                    xmax:100
+                    ymin:-2.5
+                    ymax:2.5
+                    border_color: (0,0,0,1)
+                    tick_color: (0.5,0.5,0.5,1)
+                    grid_color: (0.5,0.5,0.5,1)
+                    label_options: {'color': (0,0,0,1)}
+
+            BoxLayout:
+                id: graph_acceleroZ
+                cols: 2
+                size_hint_y: 1.0
+                spacing: 20        
+                
+                Graph:
+                    id: graph_time_acceleroZ
+                    plot: MeshLinePlot
+                    xlabel:'Waktu [s]'
+                    ylabel:'Z Axis [g]'
+                    x_ticks_minor:5
+                    x_tics_major:25
+                    y_ticks_major:1
+                    y_grid_label:True
+                    x_grid_label:True
+                    padding:5
+                    x_grid:True
+                    y_grid:True
+                    xmin:-0
+                    xmax:100
+                    ymin:-2.5
+                    ymax:2.5
+                    border_color: (0,0,0,1)
+                    tick_color: (0.5,0.5,0.5,1)
+                    grid_color: (0.5,0.5,0.5,1)
+                    label_options: {'color': (0,0,0,1)}
+
+                Graph:
+                    id: graph_freq_acceleroZ
+                    plot: MeshLinePlot
+                    xlabel:'Frekuensi [Hz]'
+                    ylabel:'Penguatan [dB]'
+                    x_ticks_minor:5
+                    x_tics_major:25
+                    y_ticks_major:1
+                    y_grid_label:True
+                    x_grid_label:True
+                    padding:5
+                    x_grid:True
+                    y_grid:True
+                    xmin:-0
+                    xmax:100
+                    ymin:-2.5
+                    ymax:2.5
+                    border_color: (0,0,0,1)
+                    tick_color: (0.5,0.5,0.5,1)
+                    grid_color: (0.5,0.5,0.5,1)
+                    label_options: {'color': (0,0,0,1)}
+
+        BoxLayout:
+            id: graph_layout_tilt
+            orientation: "vertical"
+            size_hint_y: 5
+
+            Label:
+                id: graph_title_tilt           
+                text: "Grafik Kemiringan"
+                bold: True
+                font_size: 35
+                size_hint: 0.3, 0.5
+                color: 0, 0, 0
+                
+            Button:
+                id: bt_tilt_home            
+                text: "Tampilan Awal"
+                size_hint: 0.3, 0.3
+                color: 1, 1, 1
+                on_press: root.open_home()
+                
+            BoxLayout:
+                id: graph_cb_tilt
+                orientation: "horizontal"
+                padding: 250, 0
+                spacing: 50
+                size_hint_y: 0.5
+
+                CheckBox:
+                    id: cb_tilt_x            
+                    text: "Accelero X"
+                    color: 1, 0, 0
+
+                CheckBox:
+                    id: cb_tilt_y            
+                    text: "Accelero Y"
+                    color: 0, 1, 0
+
+                CheckBox:
+                    id: cb_tilt_z            
+                    text: "Accelero Z"
+                    color: 0, 0, 1        
+
+
+            BoxLayout:
+                id: graph_tilt
+                orientation: "horizontal"
+                size_hint_y: 3.0
+                spacing: 20
+                
+                Graph:
+                    id: graph_time_tilt
+                    plot: MeshLinePlot
+                    xlabel:'Waktu [s]'
+                    ylabel:'Kemiringan [degree]'
+                    x_ticks_minor:10
+                    x_tics_major:50
+                    y_ticks_major:10
+                    y_grid_label:True
+                    x_grid_label:True
+                    padding:5
+                    x_grid:True
+                    y_grid:True
+                    xmin:-0
+                    xmax:100
+                    ymin:-360.0
+                    ymax:360.0
+                    border_color: (0,0,0,1)
+                    tick_color: (0.5,0.5,0.5,1)
+                    grid_color: (0.5,0.5,0.5,1)
+                    label_options: {'color': (0,0,0,1)}
+
+                Graph:
+                    id: graph_freq_tilt
+                    plot: MeshLinePlot
+                    xlabel:'Frekuensi [Hz]'
+                    ylabel:'Penguatan [dB]'
+                    x_ticks_minor:10
+                    x_tics_major:50
+                    y_ticks_major:10
+                    y_grid_label:True
+                    x_grid_label:True
+                    padding:5
+                    x_grid:True
+                    y_grid:True
+                    xmin:-0
+                    xmax:100
+                    ymin:-360.0
+                    ymax:360.0
+                    border_color: (0,0,0,1)
+                    tick_color: (0.5,0.5,0.5,1)
+                    grid_color: (0.5,0.5,0.5,1)
+                    label_options: {'color': (0,0,0,1)}
